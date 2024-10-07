@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="form-box">
+            <div class="left-side">
+                <img src="./imagenes/Logo-VG_Tpt02.png" alt="Insignia" class="logo">
+            </div>
+            <div class="right-side">
+                <h1>BIENVENIDOS</h1>
+                <div class="programa">
+                    <label><input type="radio" name="programa" value="analisis"> Análisis de sistema</label>
+                    <label><input type="radio" name="programa" value="produccion"> Producción Agraria</label>
+                </div>
+                <form id="registrationForm">
+                    <input type="text" id="nombre" placeholder="Nombre completo">
+                    <input type="text" id="apellidos" placeholder="Apellidos">
+                    <input type="number" id="edad" placeholder="Edad" min="1">
+                    <input type="email" id="correo" placeholder="Correo">
+                    <input type="password" id="password" placeholder="Contraseña">
+                    <a href="#" class="forgot-password">¿Olvidó su contraseña?</a>
+                    <div class="terms">
+                        <input type="checkbox" id="terms">
+                        <label for="terms">Aceptar la política de privacidad de los Términos y condiciones.</label>
+                    </div>
+                    <button type="submit">REGISTRARME</button>
+                </form>
+                  <!-- Sección para registrarse con redes sociales -->
+                   <div class="social-login">
+                    <p>O regístrate usando:</p>
+                     <div class="social-icons">
+                        <a href="https://www.facebook.com/login" target="_blank">
+                             <img src="./imagenes/facebook.png" alt="Facebook">
+                              </a>
+                              
+                              <a href="https://github.com/login" target="_blank">
+                                 <img src="./imagenes/github.png" alt="GitHub">
+                                  </a>
+                                  <a href="https://accounts.google.com/signin" target="_blank">
+                                    <img src="./imagenes/google.png" alt="Google">
+                                </a>
+                             </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+<script>
+    // Esperar a que el DOM se cargue completamente
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('registrationForm');
+    
+    form.addEventListener('submit', function(event) {
+        // Prevenir el envío del formulario para hacer las validaciones
+        event.preventDefault();
+
+        // Obtener los valores de los campos
+        const nombre = document.getElementById('nombre').value.trim();
+        const apellidos = document.getElementById('apellidos').value.trim();
+        const edad = document.getElementById('edad').value.trim();
+        const correo = document.getElementById('correo').value.trim();
+        const password = document.getElementById('password').value.trim();
+        const terms = document.getElementById('terms').checked;
+
+        // Validar campos vacíos
+        if (!nombre || !apellidos || !edad || !correo || !password) {
+            alert('Por favor, complete todos los campos.');
+            return;
+        }
+
+        // Validar edad
+        if (isNaN(edad) || edad <= 0) {
+            alert('Por favor, ingrese una edad válida.');
+            return;
+        }
+
+        // Validar correo electrónico
+        const correoRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        if (!correoRegex.test(correo)) {
+            alert('Por favor, ingrese un correo electrónico válido.');
+            return;
+        }
+
+        // Validar contraseña (al menos 8 caracteres, una letra mayúscula, un número)
+        const passwordRegex = /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/;
+        if (!passwordRegex.test(password)) {
+            alert('La contraseña debe tener al menos 8 caracteres, incluyendo una letra mayúscula y un número.');
+            return;
+        }
+
+        // Validar aceptación de términos
+        if (!terms) {
+            alert('Debe aceptar los términos y condiciones para registrarse.');
+            return;
+        }
+
+        // Si todo está correcto, enviar el formulario
+        alert('Formulario enviado correctamente');
+        form.submit();  // Solo se enviará si todo está bien
+    });
+});
+
+</script>
